@@ -9,12 +9,12 @@ export interface ICookie {
   /**
    * The value of the "ltoken" cookie.
    */
-  ltoken: string
+  ltokenV2: string
 
   /**
    * The value of the "ltuid" cookie.
    */
-  ltuid: number
+  ltuidV2: number
 
   /**
    * The value of the "cookieToken" cookie, if it exists.

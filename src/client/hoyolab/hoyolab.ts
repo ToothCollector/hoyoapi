@@ -105,7 +105,7 @@ export class Hoyolab {
     }
 
     this.request.setQueryParams({
-      uid: this.cookie.ltuid,
+      uid: this.cookie.ltuidV2,
       sLangKey: this.cookie.mi18nLang,
     })
     const {
@@ -173,7 +173,7 @@ export class Hoyolab {
     /* c8 ignore start */
     this.request.setQueryParams({
       uid:
-        this.cookie.ltuid || this.cookie.accountId || this.cookie.accountIdV2,
+        this.cookie.ltuidV2 || this.cookie.accountId || this.cookie.accountIdV2,
     })
 
     const { response: res } = await this.request.send(GAME_RECORD_CARD_API)
