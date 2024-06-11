@@ -125,13 +125,13 @@ var Cookie = class {
         cookies.set(key, Language.parseLang(cookies.get(key)));
       }
     });
-    const ltuid = cookies.get("ltuid_v2");
+    const ltuid = cookies.get("ltuidV2");
     const accountId = cookies.get("accountId");
     const accountIdV2 = cookies.get("accountIdV2");
     if (ltuid && !accountId) {
       cookies.set("accountId", ltuid);
     } else if (!ltuid && accountId) {
-      cookies.set("ltuid_v2", accountId);
+      cookies.set("ltuidV2", accountId);
     }
     if (!accountIdV2 && (accountId || ltuid) !== null) {
       cookies.set("accountIdV2", accountId || ltuid);
