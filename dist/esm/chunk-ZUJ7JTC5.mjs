@@ -1,7 +1,7 @@
 import {
   DailyModule,
   RedeemModule
-} from "./chunk-FRBMPFYP.mjs";
+} from "./chunk-OM2XKYRI.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
@@ -15,7 +15,7 @@ import {
   Hoyolab,
   Language,
   __publicField
-} from "./chunk-GMYXGLMD.mjs";
+} from "./chunk-Z75P442W.mjs";
 
 // src/client/hi/hi.interface.ts
 var HonkaiRegion = /* @__PURE__ */ ((HonkaiRegion2) => {

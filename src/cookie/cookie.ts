@@ -99,6 +99,8 @@ export class Cookie {
             'cookieTokenV2',
             'accountIdV2',
             'accountMidV2',
+            'ltokenV2',
+            'ltuidV2',
           ].includes(key)
         ) {
           key = toSnakeCase(key)
