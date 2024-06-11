@@ -68,7 +68,7 @@ export class Cookie {
     }
 
     if (!cookies.get('ltoken_v2') || !cookies.get('ltuid_v2')) {
-      throw new HoyoAPIError('Cookie key ltuid or ltoken doesnt exist !')
+      throw new HoyoAPIError('Cookie key ltuid_v2 or ltoken_v2 doesnt exist !')
     }
 
     return Object.fromEntries(cookies) as ICookie

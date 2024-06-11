@@ -1,7 +1,7 @@
 import {
   DailyModule,
   RedeemModule
-} from "./chunk-P4KTZ4OA.mjs";
+} from "./chunk-O7Y6XAYI.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
@@ -23,7 +23,7 @@ import {
   Hoyolab,
   Language,
   __publicField
-} from "./chunk-X4ROQWJO.mjs";
+} from "./chunk-EYDYS746.mjs";
 
 // src/client/gi/gi.interface.ts
 var GenshinRegion = /* @__PURE__ */ ((GenshinRegion2) => {

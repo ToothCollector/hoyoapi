@@ -77,7 +77,7 @@ class Cookie {
     }
     if (!cookies.get('ltoken_v2') || !cookies.get('ltuid_v2')) {
       throw new import_error.HoyoAPIError(
-        'Cookie key ltuid or ltoken doesnt exist !',
+        'Cookie key ltuid_v2 or ltoken_v2 doesnt exist !',
       )
     }
     return Object.fromEntries(cookies)
