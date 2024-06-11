@@ -136,7 +136,7 @@ var Cookie = class {
     if (!accountIdV2 && (accountId || ltuid) !== null) {
       cookies.set("accountIdV2", accountId || ltuid);
     }
-    if (!cookies.get("ltoken_v2") || !cookies.get("ltuid_v2")) {
+    if (!cookies.get("ltokenV2") || !cookies.get("ltuidV2")) {
       throw new HoyoAPIError("Cookie key ltuid_v2 or ltoken_v2 doesnt exist !");
     }
     return Object.fromEntries(cookies);

@@ -1,7 +1,7 @@
 import {
   DailyModule,
   RedeemModule
-} from "./chunk-O7Y6XAYI.mjs";
+} from "./chunk-KZPN3JWN.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
@@ -14,7 +14,7 @@ import {
   Hoyolab,
   Language,
   __publicField
-} from "./chunk-EYDYS746.mjs";
+} from "./chunk-IJYVZ3TE.mjs";
 
 // src/client/hsr/hsr.interface.ts
 var HsrRegion = /* @__PURE__ */ ((HsrRegion2) => {

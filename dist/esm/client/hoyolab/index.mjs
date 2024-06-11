@@ -1,7 +1,7 @@
 import {
   GamesEnum,
   Hoyolab
-} from "../../chunk-EYDYS746.mjs";
+} from "../../chunk-IJYVZ3TE.mjs";
 export {
   GamesEnum,
   Hoyolab
