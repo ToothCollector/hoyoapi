@@ -21,7 +21,7 @@ import {
   HonkaiStarRail,
   HsrRegion,
   getHsrRegion
-} from "./chunk-Q2IAK34G.mjs";
+} from "./chunk-2YFENGKM.mjs";
 import {
   DailyModule,
   RedeemModule

@@ -348,6 +348,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
         cookie: options.cookie
       });
       game = await hoyolab.gameRecordCard();
+      console.log(game);
       options.uid = parseInt(game.game_role_id);
       options.region = getHsrRegion(parseInt(game.game_role_id));
     }
@@ -360,7 +361,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
    * @param game The game object to set as the account.
    */
   set account(game) {
-    if (this.account === null && game !== null) {
+    if (this._account === null && game !== null) {
       this._account = game;
     }
   }

@@ -146,6 +146,7 @@ export class HonkaiStarRail {
       })
 
       game = await hoyolab.gameRecordCard()
+      console.log(game)
       options.uid = parseInt(game.game_role_id)
       options.region = getHsrRegion(parseInt(game.game_role_id))
     }
@@ -159,7 +160,7 @@ export class HonkaiStarRail {
    * @param game The game object to set as the account.
    */
   public set account(game: IGameRecordCard | null) {
-    if (this.account === null && game !== null) {
+    if (this._account === null && game !== null) {
       this._account = game
     }
   }
