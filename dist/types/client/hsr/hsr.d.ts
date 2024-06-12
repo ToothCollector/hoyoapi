@@ -2,7 +2,7 @@ import { ICookie } from '../../cookie'
 import { DailyModule } from '../../module/daily'
 import { RedeemModule } from '../../module/redeem'
 import { IHsrOptions } from './hsr.interface'
-import { IGame } from '../hoyolab'
+import { IGameRecordCard } from '../hoyolab'
 import { HSRRecordModule } from './record'
 /**
  * Class representing the Honkai Star Rail game.
@@ -86,12 +86,12 @@ export declare class HonkaiStarRail {
    * Setter for the account property. Prevents from changing the value once set
    * @param game The game object to set as the account.
    */
-  set account(game: IGame | null)
+  set account(game: IGameRecordCard | null)
   /**
    * Getter for the account property.
-   * @returns {IGame | null} The current value of the account property.
+   * @returns {IGameRecordCard | null} The current value of the account property.
    */
-  get account(): IGame | null
+  get account(): IGameRecordCard | null
   /**
    * Retrieves daily information.
    *

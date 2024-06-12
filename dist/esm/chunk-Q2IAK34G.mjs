@@ -347,9 +347,9 @@ var HonkaiStarRail = class _HonkaiStarRail {
       const hoyolab = new Hoyolab({
         cookie: options.cookie
       });
-      game = await hoyolab.gameAccount("hkrpg_global" /* HONKAI_STAR_RAIL */);
-      options.uid = parseInt(game.game_uid);
-      options.region = getHsrRegion(parseInt(game.game_uid));
+      game = await hoyolab.gameRecordCard();
+      options.uid = parseInt(game.game_role_id);
+      options.region = getHsrRegion(parseInt(game.game_role_id));
     }
     const hsr = new _HonkaiStarRail(options);
     hsr.account = game;
@@ -366,7 +366,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
   }
   /**
    * Getter for the account property.
-   * @returns {IGame | null} The current value of the account property.
+   * @returns {IGameRecordCard | null} The current value of the account property.
    */
   get account() {
     return this._account;

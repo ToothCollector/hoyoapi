@@ -162,11 +162,11 @@ class HonkaiStarRail {
       const hoyolab = new import_hoyolab.Hoyolab({
         cookie: options.cookie,
       })
-      game = await hoyolab.gameAccount(
-        import_hoyolab.GamesEnum.HONKAI_STAR_RAIL,
+      game = await hoyolab.gameRecordCard()
+      options.uid = parseInt(game.game_role_id)
+      options.region = (0, import_hsr2.getHsrRegion)(
+        parseInt(game.game_role_id),
       )
-      options.uid = parseInt(game.game_uid)
-      options.region = (0, import_hsr2.getHsrRegion)(parseInt(game.game_uid))
     }
     const hsr = new HonkaiStarRail(options)
     hsr.account = game
@@ -183,7 +183,7 @@ class HonkaiStarRail {
   }
   /**
    * Getter for the account property.
-   * @returns {IGame | null} The current value of the account property.
+   * @returns {IGameRecordCard | null} The current value of the account property.
    */
   get account() {
     return this._account
