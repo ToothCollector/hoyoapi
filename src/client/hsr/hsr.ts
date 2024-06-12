@@ -6,7 +6,7 @@ import { HTTPRequest } from '../../request'
 import { IHsrOptions } from './hsr.interface'
 import { DEFAULT_REFERER } from '../../routes'
 import { getHsrRegion } from './hsr.helper'
-import { GamesEnum, Hoyolab, IGameRecordCard } from '../hoyolab'
+import { GamesEnum, Hoyolab, IGame } from '../hoyolab'
 import { HSRRecordModule } from './record'
 
 /**
@@ -51,7 +51,7 @@ export class HonkaiStarRail {
    * HoyYolab account object
    *
    */
-  private _account: IGameRecordCard | null = null
+  private _account: IGame | null = null
 
   /**
    * The UID of the Honkai Star Rail account.
@@ -139,16 +139,15 @@ export class HonkaiStarRail {
    * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
    */
   static async create(options: IHsrOptions): Promise<HonkaiStarRail> {
-    let game: IGameRecordCard | null = null
+    let game: IGame | null = null
     if (typeof options.uid === 'undefined') {
       const hoyolab = new Hoyolab({
         cookie: options.cookie,
       })
 
-      game = await hoyolab.gameRecordCard()
-      console.log(game)
-      options.uid = parseInt(game.game_role_id)
-      options.region = getHsrRegion(parseInt(game.game_role_id))
+      game = await hoyolab.gameAccount(GamesEnum.HONKAI_STAR_RAIL)
+      options.uid = parseInt(game.game_uid)
+      options.region = getHsrRegion(parseInt(game.game_uid))
     }
     const hsr = new HonkaiStarRail(options)
     hsr.account = game
@@ -159,7 +158,7 @@ export class HonkaiStarRail {
    * Setter for the account property. Prevents from changing the value once set
    * @param game The game object to set as the account.
    */
-  public set account(game: IGameRecordCard | null) {
+  public set account(game: IGame | null) {
     if (this._account === null && game !== null) {
       this._account = game
     }
@@ -167,9 +166,9 @@ export class HonkaiStarRail {
 
   /**
    * Getter for the account property.
-   * @returns {IGameRecordCard | null} The current value of the account property.
+   * @returns {IGame | null} The current value of the account property.
    */
-  public get account(): IGameRecordCard | null {
+  public get account(): IGame | null {
     return this._account
   }
 
