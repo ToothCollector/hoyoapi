@@ -71,7 +71,7 @@ export declare class Hoyolab {
    * Retrieves the game record card
    *
    * @async
-   * @returns {Promise<IGameRecordCard>} The game account.
+   * @returns {Promise<IGameRecordCard[]>} The game account.
    */
-  gameRecordCard(): Promise<IGameRecordCard>
+  gameRecordCard(): Promise<IGameRecordCard[]>
 }

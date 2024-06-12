@@ -1,62 +1,47 @@
 import {
   DailyModule,
   RedeemModule
-} from "./chunk-OM2XKYRI.mjs";
+} from "./chunk-CBZPXED2.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
-  HSR_RECORD_CHARACTER_API,
-  HSR_RECORD_FORGOTTEN_HALL_API,
-  HSR_RECORD_INDEX_API,
-  HSR_RECORD_NOTE_API,
+  HI_RECORD_ABYSS_API,
+  HI_RECORD_ARENA_API,
+  HI_RECORD_CHARACTER_API,
+  HI_RECORD_ELYSIAN_API,
+  HI_RECORD_INDEX_API,
   HTTPRequest,
   HoyoAPIError,
   Hoyolab,
   Language,
   __publicField
-} from "./chunk-Z75P442W.mjs";
+} from "./chunk-CWUB5GFP.mjs";
 
-// src/client/hsr/hsr.interface.ts
-var HsrRegion = /* @__PURE__ */ ((HsrRegion2) => {
-  HsrRegion2["USA"] = "prod_official_usa";
-  HsrRegion2["EUROPE"] = "prod_official_eur";
-  HsrRegion2["ASIA"] = "prod_official_asia";
-  HsrRegion2["CHINA_TAIWAN"] = "prod_official_cht";
-  return HsrRegion2;
-})(HsrRegion || {});
+// src/client/hi/hi.interface.ts
+var HonkaiRegion = /* @__PURE__ */ ((HonkaiRegion2) => {
+  HonkaiRegion2["USA"] = "usa01";
+  HonkaiRegion2["EUROPE"] = "eur01";
+  HonkaiRegion2["ASIA"] = "overseas01";
+  return HonkaiRegion2;
+})(HonkaiRegion || {});
 
-// src/client/hsr/hsr.helper.ts
-function getHsrRegion(uid) {
-  const server_region = Number(uid.toString().trim().slice(0, 1));
+// src/client/hi/hi.helper.ts
+function getHi3Region(uid) {
   let key;
-  switch (server_region) {
-    case 6:
-      key = "USA";
-      break;
-    case 7:
-      key = "EUROPE";
-      break;
-    case 8:
-      key = "ASIA";
-      break;
-    case 9:
-      key = "CHINA_TAIWAN";
-      break;
-    default:
-      throw new HoyoAPIError("Given UID ".concat(uid, " is invalid !"));
+  if (uid > 1e7 && uid < 1e8) {
+    key = "ASIA";
+  } else if (uid > 1e8 && uid < 2e8) {
+    key = "USA";
+  } else if (uid > 2e8 && uid < 3e8) {
+    key = "EURO";
+  } else {
+    throw new HoyoAPIError("Given UID ".concat(uid, " is invalid !"));
   }
-  return HsrRegion[key];
+  return HonkaiRegion[key];
 }
 
-// src/client/hsr/record/record.enum.ts
-var ForgottenHallScheduleEnum = /* @__PURE__ */ ((ForgottenHallScheduleEnum2) => {
-  ForgottenHallScheduleEnum2[ForgottenHallScheduleEnum2["CURRENT"] = 1] = "CURRENT";
-  ForgottenHallScheduleEnum2[ForgottenHallScheduleEnum2["PREVIOUS"] = 2] = "PREVIOUS";
-  return ForgottenHallScheduleEnum2;
-})(ForgottenHallScheduleEnum || {});
-
-// src/client/hsr/record/record.ts
-var HSRRecordModule = class {
+// src/client/hi/record/record.ts
+var HIRecordModule = class {
   /**
    * Creates an instance of HSRRecordModule.
    *
@@ -72,49 +57,9 @@ var HSRRecordModule = class {
     this.uid = uid;
   }
   /**
-   * Retrieves the characters associated with the provided region and UID.
-   *
-   * @returns {Promise<IHSRCharacterFull[]>} A Promise that resolves to an array of full HSR characters.
-   * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
-   * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
-   */
-  async characters() {
-    var _a;
-    if (!this.region || !this.uid) {
-      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
-    }
-    this.request.setQueryParams({
-      server: this.region,
-      role_id: this.uid,
-      lang: this.lang
-    }).setDs(true);
-    const {
-      response: res,
-      body,
-      params,
-      headers
-    } = await this.request.send(HSR_RECORD_CHARACTER_API);
-    if (res.retcode !== 0) {
-      throw new HoyoAPIError(
-        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
-        res.retcode,
-        {
-          response: res,
-          request: {
-            body,
-            headers,
-            params
-          }
-        }
-      );
-    }
-    const data = res.data;
-    return data.avatar_list;
-  }
-  /**
    * Retrieves the records associated with the provided region and UID.
    *
-   * @returns {Promise<IHSRRecord>} A Promise that resolves to the HSR record object.
+   * @returns {Promise<IHIRecord>} A Promise that resolves to the HI record object.
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
@@ -130,10 +75,10 @@ var HSRRecordModule = class {
     }).setDs(true);
     const {
       response: res,
-      body,
       params,
+      body,
       headers
-    } = await this.request.send(HSR_RECORD_INDEX_API);
+    } = await this.request.send(HI_RECORD_INDEX_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
         (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
@@ -151,13 +96,13 @@ var HSRRecordModule = class {
     return res.data;
   }
   /**
-   * Retrieves the note associated with the provided region and UID.
+   * Retrieves the characters associated with the provided region and UID.
    *
-   * @returns {Promise<IHSRNote>} A Promise that resolves to the HSR note object.
+   * @returns {Promise<IHICharacter[]>} A Promise that resolves to an array of HI characters.
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
-  async note() {
+  async characters() {
     var _a;
     if (!this.region || !this.uid) {
       throw new HoyoAPIError("UID parameter is missing or failed to be filled");
@@ -169,10 +114,54 @@ var HSRRecordModule = class {
     }).setDs(true);
     const {
       response: res,
-      body,
       params,
+      body,
       headers
-    } = await this.request.send(HSR_RECORD_NOTE_API);
+    } = await this.request.send(HI_RECORD_CHARACTER_API);
+    if (res.retcode !== 0) {
+      throw new HoyoAPIError(
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
+        res.retcode,
+        {
+          response: res,
+          request: {
+            body,
+            headers,
+            params
+          }
+        }
+      );
+    }
+    return res.data.characters;
+  }
+  /**
+   * Retrieves the abyss information associated with the provided region and UID.
+   *
+   * @returns {Promise<IHIAbyss>} A Promise that resolves to the HI abyss information object.
+   * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
+   * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
+   *
+   * @beta
+   * @remarks
+   * This method is still in beta, as the response obtained from the server is not yet complete.
+   * If you would like to contribute, please send a more complete response by creating a pull request.
+   */
+  async abyss() {
+    var _a;
+    if (!this.region || !this.uid) {
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
+    }
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
+    const {
+      response: res,
+      params,
+      body,
+      headers
+    } = await this.request.send(HI_RECORD_ABYSS_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
         (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
@@ -190,35 +179,77 @@ var HSRRecordModule = class {
     return res.data;
   }
   /**
-   * Retrieves the forgotten hall information associated with the provided region and UID.
+   * Retrieves the arena information associated with the provided region and UID.
    *
-   * @param scheduleType The schedule type for the forgotten hall (optional, defaults to CURRENT).
-   * @returns {Promise<IHSRForgottenHall>} A Promise that resolves to the forgotten hall information object.
+   * @returns {Promise<IHIArena>} A Promise that resolves to the HI arena information object.
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
-   * @throws {HoyoAPIError} if the given scheduleType parameter is invalid.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
+   *
+   * @beta
+   * @remarks
+   * This method is still in beta, as the response obtained from the server is not yet complete.
+   * If you would like to contribute, please send a more complete response by creating a pull request.
    */
-  async forgottenHall(scheduleType = 1 /* CURRENT */) {
+  async arena() {
     var _a;
     if (!this.region || !this.uid) {
       throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    if (Object.values(ForgottenHallScheduleEnum).includes(scheduleType) === false) {
-      throw new HoyoAPIError("The given scheduleType parameter is invalid !");
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
+    const {
+      response: res,
+      params,
+      body,
+      headers
+    } = await this.request.send(HI_RECORD_ARENA_API);
+    if (res.retcode !== 0) {
+      throw new HoyoAPIError(
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
+        res.retcode,
+        {
+          response: res,
+          request: {
+            body,
+            headers,
+            params
+          }
+        }
+      );
+    }
+    return res.data;
+  }
+  /**
+   * Retrieves the elysian information associated with the provided region and UID.
+   *
+   * @returns {Promise<IHIElysian>} A Promise that resolves to the HI elysian information object.
+   * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
+   * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
+   *
+   * @beta
+   * @remarks
+   * This method is still in beta, as the response obtained from the server is not yet complete.
+   * If you would like to contribute, please send a more complete response by creating a pull request.
+   */
+  async elysian() {
+    var _a;
+    if (!this.region || !this.uid) {
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
     this.request.setQueryParams({
       server: this.region,
       role_id: this.uid,
-      schedule_type: scheduleType,
-      lang: this.lang,
-      need_all: "true"
-    }).setDs();
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
-      body,
       params,
+      body,
       headers
-    } = await this.request.send(HSR_RECORD_FORGOTTEN_HALL_API);
+    } = await this.request.send(HI_RECORD_ELYSIAN_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
         (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
@@ -237,27 +268,28 @@ var HSRRecordModule = class {
   }
 };
 
-// src/client/hsr/hsr.ts
-var HonkaiStarRail = class _HonkaiStarRail {
+// src/client/hi/hi.ts
+var HonkaiImpact = class _HonkaiImpact {
   /**
-   * Create a new instance of HonkaiStarRail.
+   * Create a new instance of HonkaiImpact.
    *
-   * @constructor
-   * @param {IHsrOptions} options - The options for the HonkaiStarRail instance.
+   * @param options The options object used to configure the object.
    */
   constructor(options) {
     /**
-     * The Daily module for the Honkai Star Rail game.
+     * The Daily module for the Honkai Impact 3rd game.
      *
      */
     __publicField(this, "daily");
     /**
-     * The Redeem module for the Honkai Star Rail game.
+     * The Redeem module for the Honkai Impact 3rd game.
      *
+     * @public
+     * @readonly
      */
     __publicField(this, "redeem");
     /**
-     * The `HSRRecordModule` object provides an interface to interact with the user record feature in Honkai Star Rails.
+     * The `HIRecordModule` object provides an interface to interact with the user record feature in Honkai Star Rails.
      *
      */
     __publicField(this, "record");
@@ -277,17 +309,17 @@ var HonkaiStarRail = class _HonkaiStarRail {
      */
     __publicField(this, "_account", null);
     /**
-     * The UID of the Honkai Star Rail account.
+     * The UID of the Honkai Impact 3rd account.
      *
      */
     __publicField(this, "uid");
     /**
-     * The region of the Honkai Star Rail account.
+     * The region of the Honkai Impact 3rd account.
      *
      */
     __publicField(this, "region");
     /**
-     * The language of the Honkai Star Rail account.
+     * The language of the Honkai Impact 3rd account.
      *
      */
     __publicField(this, "lang");
@@ -302,22 +334,22 @@ var HonkaiStarRail = class _HonkaiStarRail {
     this.request.setReferer(DEFAULT_REFERER);
     this.request.setLang(options.lang);
     this.uid = (_a = options.uid) != null ? _a : null;
-    this.region = this.uid !== null ? getHsrRegion(this.uid) : null;
+    this.region = this.uid !== null ? getHi3Region(this.uid) : null;
     this.lang = options.lang;
     this.daily = new DailyModule(
       this.request,
       this.lang,
-      "hkrpg_global" /* HONKAI_STAR_RAIL */,
+      "bh3_global" /* HONKAI_IMPACT */,
       this.region
     );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
-      "hkrpg_global" /* HONKAI_STAR_RAIL */,
+      "bh3_global" /* HONKAI_IMPACT */,
       this.region,
       this.uid
     );
-    this.record = new HSRRecordModule(
+    this.record = new HIRecordModule(
       this.request,
       this.lang,
       this.region,
@@ -325,11 +357,12 @@ var HonkaiStarRail = class _HonkaiStarRail {
     );
   }
   /**
-   * Create a new instance of HonkaiStarRail using a Hoyolab account.
+   * Create a new instance of HonkaiImpact using a Hoyolab account.
    * If `uid` is not provided in the `options`, the account with the highest level will be used.
    *
-   * @param {IHsrOptions} options - The options for the HonkaiStarRail instance.
-   * @returns {Promise<HonkaiStarRail>} - A promise that resolves with a new HonkaiStarRail instance.
+   * @param options The options object used to configure the object.
+   * @throws {HoyoAPIError} Error Wnen the CookieTokenV2 is not set.
+   * @returns {Promise<HonkaiImpact>} - A promise that resolves with a new HonkaiImpact instance.
    *
    * @remarks
    * If an object is instantiated from this method but options.cookie.cookieTokenV2 is not set,
@@ -342,25 +375,29 @@ var HonkaiStarRail = class _HonkaiStarRail {
    * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
    */
   static async create(options) {
-    let game = null;
-    if (typeof options.uid === "undefined") {
-      const hoyolab = new Hoyolab({
-        cookie: options.cookie
-      });
-      game = await hoyolab.gameAccount("hkrpg_global" /* HONKAI_STAR_RAIL */);
-      options.uid = parseInt(game.game_uid);
-      options.region = getHsrRegion(parseInt(game.game_uid));
+    try {
+      let game = null;
+      if (typeof options.uid === "undefined") {
+        const hoyolab = new Hoyolab({
+          cookie: options.cookie
+        });
+        game = await hoyolab.gameAccount("bh3_global" /* HONKAI_IMPACT */);
+        options.uid = parseInt(game.game_uid);
+        options.region = getHi3Region(parseInt(game.game_uid));
+      }
+      const hi = new _HonkaiImpact(options);
+      hi.account = game;
+      return hi;
+    } catch (error) {
+      throw new HoyoAPIError(error.message, error.code);
     }
-    const hsr = new _HonkaiStarRail(options);
-    hsr.account = game;
-    return hsr;
   }
   /**
    * Setter for the account property. Prevents from changing the value once set
    * @param game The game object to set as the account.
    */
   set account(game) {
-    if (this._account === null && game !== null) {
+    if (this.account === null && game !== null) {
       this._account = game;
     }
   }
@@ -375,7 +412,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
    * Retrieves daily information.
    *
    * @alias {@link DailyModule.info | DailyModule.info }
-   * @deprecated Use through { @link HonkaiStarRail.daily | HonkaiStarRail.daily.info() } instead
+   * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.info() } instead
    */
   dailyInfo() {
     return this.daily.info();
@@ -383,7 +420,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
   /**
    *
    * @alias {@link DailyModule.rewards | DailyModule.rewards }
-   * @deprecated Use through { @link HonkaiStarRail.daily | HonkaiStarRail.daily.rewards() } instead
+   * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.rewards() } instead
    */
   dailyRewards() {
     return this.daily.rewards();
@@ -393,7 +430,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
    *
    * @param day number | null
    * @alias {@link DailyModule.reward | DailyModule.reward }
-   * @deprecated Use through { @link HonkaiStarRail.daily | HonkaiStarRail.daily.reward() } instead
+   * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.reward() } instead
    */
   dailyReward(day = null) {
     return this.daily.reward(day);
@@ -402,7 +439,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
    * Claim current reward
    *
    * @alias {@link DailyModule.claim | DailyModule.claim }
-   * @deprecated Use through { @link HonkaiStarRail.daily | HonkaiStarRail.daily.claim() } instead
+   * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.claim() } instead
    */
   dailyClaim() {
     return this.daily.claim();
@@ -412,7 +449,7 @@ var HonkaiStarRail = class _HonkaiStarRail {
    *
    * @param code string
    * @alias {@link RedeemModule.claim | RedeemModule.claim }
-   * @deprecated Use through { @link HonkaiStarRail.redeem | HonkaiStarRail.redeem.claim() } instead
+   * @deprecated Use through { @link HonkaiImpact.redeem | HonkaiImpact.redeem.claim() } instead
    */
   redeemCode(code) {
     return this.redeem.claim(code);
@@ -420,9 +457,8 @@ var HonkaiStarRail = class _HonkaiStarRail {
 };
 
 export {
-  HsrRegion,
-  getHsrRegion,
-  ForgottenHallScheduleEnum,
-  HSRRecordModule,
-  HonkaiStarRail
+  HonkaiRegion,
+  getHi3Region,
+  HIRecordModule,
+  HonkaiImpact
 };

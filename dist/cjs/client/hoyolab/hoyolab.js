@@ -166,7 +166,7 @@ class Hoyolab {
    * Retrieves the game record card
    *
    * @async
-   * @returns {Promise<IGameRecordCard>} The game account.
+   * @returns {Promise<IGameRecordCard[]>} The game account.
    */
   async gameRecordCard() {
     this.request.setQueryParams({

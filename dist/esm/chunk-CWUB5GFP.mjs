@@ -269,6 +269,7 @@ var Cache = class {
 };
 
 // src/cache/index.ts
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var cache_default = new Cache();
 
 // src/request/request.ts
@@ -703,7 +704,7 @@ var Hoyolab = class {
    * Retrieves the game record card
    *
    * @async
-   * @returns {Promise<IGameRecordCard>} The game account.
+   * @returns {Promise<IGameRecordCard[]>} The game account.
    */
   async gameRecordCard() {
     this.request.setQueryParams({

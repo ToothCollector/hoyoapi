@@ -167,9 +167,9 @@ export class Hoyolab {
    * Retrieves the game record card
    *
    * @async
-   * @returns {Promise<IGameRecordCard>} The game account.
+   * @returns {Promise<IGameRecordCard[]>} The game account.
    */
-  async gameRecordCard(): Promise<IGameRecordCard> {
+  async gameRecordCard(): Promise<IGameRecordCard[]> {
     /* c8 ignore start */
     this.request.setQueryParams({
       uid:
@@ -178,7 +178,7 @@ export class Hoyolab {
 
     const { response: res } = await this.request.send(GAME_RECORD_CARD_API)
 
-    return (res as any).data.list as IGameRecordCard
+    return (res as any).data.list as IGameRecordCard[]
   }
   /* c8 ignore stop */
 }
