@@ -269,7 +269,6 @@ var Cache = class {
 };
 
 // src/cache/index.ts
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var cache_default = new Cache();
 
 // src/request/request.ts
