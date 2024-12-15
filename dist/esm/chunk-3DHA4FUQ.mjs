@@ -1,4 +1,7 @@
-import { DailyModule, RedeemModule } from './chunk-CBZPXED2.mjs'
+import {
+  DailyModule,
+  RedeemModule
+} from "./chunk-CBZPXED2.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
@@ -19,49 +22,47 @@ import {
   HoyoAPIError,
   Hoyolab,
   Language,
-  __publicField,
-} from './chunk-CWUB5GFP.mjs'
+  __publicField
+} from "./chunk-CWUB5GFP.mjs";
 
 // src/client/gi/gi.interface.ts
 var GenshinRegion = /* @__PURE__ */ ((GenshinRegion2) => {
-  GenshinRegion2['USA'] = 'os_usa'
-  GenshinRegion2['EUROPE'] = 'os_euro'
-  GenshinRegion2['ASIA'] = 'os_asia'
-  GenshinRegion2['CHINA_TAIWAN'] = 'os_cht'
-  return GenshinRegion2
-})(GenshinRegion || {})
+  GenshinRegion2["USA"] = "os_usa";
+  GenshinRegion2["EUROPE"] = "os_euro";
+  GenshinRegion2["ASIA"] = "os_asia";
+  GenshinRegion2["CHINA_TAIWAN"] = "os_cht";
+  return GenshinRegion2;
+})(GenshinRegion || {});
 
 // src/client/gi/gi.helper.ts
 function getGenshinRegion(uid) {
-  const server_region = Number(uid.toString().trim().slice(0, 1))
-  let key
+  const server_region = Number(uid.toString().trim().slice(0, 1));
+  let key;
   switch (server_region) {
     case 6:
-      key = 'USA'
-      break
+      key = "USA";
+      break;
     case 7:
-      key = 'EUROPE'
-      break
+      key = "EUROPE";
+      break;
     case 8:
-      key = 'ASIA'
-      break
+      key = "ASIA";
+      break;
     case 9:
-      key = 'CHINA_TAIWAN'
-      break
+      key = "CHINA_TAIWAN";
+      break;
     default:
-      throw new HoyoAPIError('Given UID '.concat(uid, ' is invalid !'))
+      throw new HoyoAPIError("Given UID ".concat(uid, " is invalid !"));
   }
-  return GenshinRegion[key]
+  return GenshinRegion[key];
 }
 
 // src/client/gi/record/record.enum.ts
 var SpiralAbyssScheduleEnum = /* @__PURE__ */ ((SpiralAbyssScheduleEnum2) => {
-  SpiralAbyssScheduleEnum2[(SpiralAbyssScheduleEnum2['CURRENT'] = 1)] =
-    'CURRENT'
-  SpiralAbyssScheduleEnum2[(SpiralAbyssScheduleEnum2['PREVIOUS'] = 2)] =
-    'PREVIOUS'
-  return SpiralAbyssScheduleEnum2
-})(SpiralAbyssScheduleEnum || {})
+  SpiralAbyssScheduleEnum2[SpiralAbyssScheduleEnum2["CURRENT"] = 1] = "CURRENT";
+  SpiralAbyssScheduleEnum2[SpiralAbyssScheduleEnum2["PREVIOUS"] = 2] = "PREVIOUS";
+  return SpiralAbyssScheduleEnum2;
+})(SpiralAbyssScheduleEnum || {});
 
 // src/client/gi/record/record.ts
 var GenshinRecordModule = class {
@@ -75,10 +76,10 @@ var GenshinRecordModule = class {
    * @param {number | null} uid - The user ID of the Genshin Impact account.
    */
   constructor(request, lang, region, uid) {
-    this.request = request
-    this.lang = lang
-    this.region = region
-    this.uid = uid
+    this.request = request;
+    this.lang = lang;
+    this.region = region;
+    this.uid = uid;
   }
   /**
    * Get user's Genshin Impact record
@@ -92,40 +93,36 @@ var GenshinRecordModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async records() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       headers,
       body,
-      params,
-    } = await this.request.send(GENSHIN_RECORD_INDEX_API)
+      params
+    } = await this.request.send(GENSHIN_RECORD_INDEX_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    *
@@ -139,39 +136,35 @@ var GenshinRecordModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async characters() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setBody({
-        server: this.region,
-        role_id: this.uid,
-      })
-      .setDs(true)
+    this.request.setBody({
+      server: this.region,
+      role_id: this.uid
+    }).setDs(true);
     const {
       response: res,
       headers,
       body,
-      params,
-    } = await this.request.send(GENSHIN_RECORD_CHARACTER_API, 'POST')
+      params
+    } = await this.request.send(GENSHIN_RECORD_CHARACTER_API, "POST");
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Returns the summary information of Genshin Impact game characters.
@@ -184,40 +177,36 @@ var GenshinRecordModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async charactersSummary(characterIds) {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setBody({
-        character_ids: characterIds,
-        role_id: this.uid,
-        server: this.region,
-      })
-      .setDs()
+    this.request.setBody({
+      character_ids: characterIds,
+      role_id: this.uid,
+      server: this.region
+    }).setDs();
     const {
       response: res,
       headers,
       body,
-      params,
-    } = await this.request.send(GENSHIN_RECORD_AVATAR_BASIC_INFO_API, 'POST')
+      params
+    } = await this.request.send(GENSHIN_RECORD_AVATAR_BASIC_INFO_API, "POST");
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves information about the player's performance in the Spiral Abyss.
@@ -230,45 +219,39 @@ var GenshinRecordModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async spiralAbyss(scheduleType = 1 /* CURRENT */) {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    if (
-      Object.values(SpiralAbyssScheduleEnum).includes(scheduleType) === false
-    ) {
-      throw new HoyoAPIError('The given scheduleType parameter is invalid !')
+    if (Object.values(SpiralAbyssScheduleEnum).includes(scheduleType) === false) {
+      throw new HoyoAPIError("The given scheduleType parameter is invalid !");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        schedule_type: scheduleType,
-      })
-      .setDs()
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      schedule_type: scheduleType
+    }).setDs();
     const {
       response: res,
       headers,
       body,
-      params,
-    } = await this.request.send(GENSHIN_RECORD_SPIRAL_ABYSS_API)
+      params
+    } = await this.request.send(GENSHIN_RECORD_SPIRAL_ABYSS_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieve the daily note information for a Genshin Impact user.
@@ -279,63 +262,55 @@ var GenshinRecordModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async dailyNote() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-      })
-      .setDs()
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid
+    }).setDs();
     const {
       response: res,
       headers,
       body,
-      params,
-    } = await this.request.send(GENSHIN_RECORD_DAILY_NOTE_API)
+      params
+    } = await this.request.send(GENSHIN_RECORD_DAILY_NOTE_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
-}
+};
 
 // src/client/gi/diary/diary.interface.ts
-var currentMonth = /* @__PURE__ */ new Date().getMonth()
-var oneMonthAgo = /* @__PURE__ */ new Date()
-oneMonthAgo.setMonth(currentMonth - 1)
-var twoMonthAgo = /* @__PURE__ */ new Date()
-twoMonthAgo.setMonth(currentMonth - 2)
+var currentMonth = (/* @__PURE__ */ new Date()).getMonth();
+var oneMonthAgo = /* @__PURE__ */ new Date();
+oneMonthAgo.setMonth(currentMonth - 1);
+var twoMonthAgo = /* @__PURE__ */ new Date();
+twoMonthAgo.setMonth(currentMonth - 2);
 var DiaryMonthEnum = ((DiaryMonthEnum2) => {
-  DiaryMonthEnum2[(DiaryMonthEnum2['CURRENT'] = currentMonth + 1)] = 'CURRENT'
-  DiaryMonthEnum2[
-    (DiaryMonthEnum2['ONE_MONTH_AGO'] = oneMonthAgo.getMonth() + 1)
-  ] = 'ONE_MONTH_AGO'
-  DiaryMonthEnum2[
-    (DiaryMonthEnum2['TWO_MONTH_AGO'] = twoMonthAgo.getMonth() + 1)
-  ] = 'TWO_MONTH_AGO'
-  return DiaryMonthEnum2
-})(DiaryMonthEnum || {})
+  DiaryMonthEnum2[DiaryMonthEnum2["CURRENT"] = currentMonth + 1] = "CURRENT";
+  DiaryMonthEnum2[DiaryMonthEnum2["ONE_MONTH_AGO"] = oneMonthAgo.getMonth() + 1] = "ONE_MONTH_AGO";
+  DiaryMonthEnum2[DiaryMonthEnum2["TWO_MONTH_AGO"] = twoMonthAgo.getMonth() + 1] = "TWO_MONTH_AGO";
+  return DiaryMonthEnum2;
+})(DiaryMonthEnum || {});
 var DiaryEnum = /* @__PURE__ */ ((DiaryEnum3) => {
-  DiaryEnum3[(DiaryEnum3['PRIMOGEMS'] = 1)] = 'PRIMOGEMS'
-  DiaryEnum3[(DiaryEnum3['MORA'] = 2)] = 'MORA'
-  return DiaryEnum3
-})(DiaryEnum || {})
+  DiaryEnum3[DiaryEnum3["PRIMOGEMS"] = 1] = "PRIMOGEMS";
+  DiaryEnum3[DiaryEnum3["MORA"] = 2] = "MORA";
+  return DiaryEnum3;
+})(DiaryEnum || {});
 
 // src/client/gi/diary/diary.ts
 var GenshinDiaryModule = class {
@@ -348,10 +323,10 @@ var GenshinDiaryModule = class {
    * @param uid - A number value for the UID of the user
    */
   constructor(request, lang, region, uid) {
-    this.request = request
-    this.lang = lang
-    this.region = region
-    this.uid = uid
+    this.request = request;
+    this.lang = lang;
+    this.region = region;
+    this.uid = uid;
   }
   /**
    * Returns the diary information of a given month for a user
@@ -364,44 +339,40 @@ var GenshinDiaryModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async list(month = DiaryMonthEnum.CURRENT) {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
     if (Object.values(DiaryMonthEnum).includes(month) === false) {
-      throw new HoyoAPIError('The given month parameter is invalid !')
+      throw new HoyoAPIError("The given month parameter is invalid !");
     }
-    this.request
-      .setQueryParams({
-        region: this.region,
-        uid: this.uid,
-        month,
-        lang: this.lang,
-      })
-      .setDs()
+    this.request.setQueryParams({
+      region: this.region,
+      uid: this.uid,
+      month,
+      lang: this.lang
+    }).setDs();
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(GENSHIN_DIARY_LIST_API)
+      headers
+    } = await this.request.send(GENSHIN_DIARY_LIST_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Returns the diary details of a given type and month for a user
@@ -415,79 +386,74 @@ var GenshinDiaryModule = class {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async detail(type, month = DiaryMonthEnum.CURRENT) {
-    var _a, _b
+    var _a, _b;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
     if (Object.values(DiaryMonthEnum).includes(month) === false) {
-      throw new HoyoAPIError('The given month parameter is invalid !')
+      throw new HoyoAPIError("The given month parameter is invalid !");
     }
     if (Object.values(DiaryEnum).includes(type) === false) {
-      throw new HoyoAPIError('The given type parameter is invalid !')
+      throw new HoyoAPIError("The given type parameter is invalid !");
     }
-    const responses = {}
-    let page = 1
-    let next = true
+    const responses = {};
+    let page = 1;
+    let next = true;
     do {
-      this.request
-        .setQueryParams({
-          region: this.region,
-          uid: this.uid,
-          month,
-          type,
-          current_page: page,
-          page_size: 100,
-          lang: this.lang,
-        })
-        .setDs()
+      this.request.setQueryParams({
+        region: this.region,
+        uid: this.uid,
+        month,
+        type,
+        current_page: page,
+        page_size: 100,
+        lang: this.lang
+      }).setDs();
       const {
         response: res,
         params,
         body,
-        headers,
-      } = await this.request.send(GENSHIN_DIARY_DETAIL_API)
+        headers
+      } = await this.request.send(GENSHIN_DIARY_DETAIL_API);
       if (res.retcode !== 0) {
         throw new HoyoAPIError(
-          (_a = res.message) != null
-            ? _a
-            : 'Failed to retrieve data, please double-check the provided UID.',
+          (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
           res.retcode,
           {
             response: res,
             request: {
               body,
               headers,
-              params,
-            },
-          },
-        )
+              params
+            }
+          }
+        );
       }
-      const data = res.data
-      responses.uid = data.uid
-      responses.region = data.region
-      responses.optional_month = data.optional_month
-      responses.nickname = data.nickname
-      responses.data_month = data.data_month
-      responses.current_page = data.current_page
-      responses.list = [
-        ...((_b = responses.list) != null ? _b : []),
-        ...data.list,
-      ]
+      const data = res.data;
+      responses.uid = data.uid;
+      responses.region = data.region;
+      responses.optional_month = data.optional_month;
+      responses.nickname = data.nickname;
+      responses.data_month = data.data_month;
+      responses.current_page = data.current_page;
+      responses.list = [...(_b = responses.list) != null ? _b : [], ...data.list];
       if (data.list.length < 1) {
-        next = false
+        next = false;
       }
-      page++
-    } while (next)
+      page++;
+    } while (next);
     responses.list.sort((a, b) => {
-      const keyA = new Date(a.time)
-      const keyB = new Date(b.time)
-      if (keyA < keyB) return -1
-      if (keyA > keyB) return 1
-      return 0
-    })
-    return responses
+      const keyA = new Date(a.time);
+      const keyB = new Date(b.time);
+      if (keyA < keyB)
+        return -1;
+      if (keyA > keyB)
+        return 1;
+      return 0;
+    });
+    return responses;
   }
-}
+};
 
 // src/client/gi/tcg/tcg.ts
 var GenshinTCGModule = class {
@@ -499,10 +465,10 @@ var GenshinTCGModule = class {
    * @param uid - The UID number or null.
    */
   constructor(request, lang, region, uid) {
-    this.request = request
-    this.lang = lang
-    this.region = region
-    this.uid = uid
+    this.request = request;
+    this.lang = lang;
+    this.region = region;
+    this.uid = uid;
   }
   /**
    * Retrieves basic information for the Genshin Impact TCG.
@@ -511,37 +477,33 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async basicInfo() {
-    var _a
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    var _a;
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       body,
       headers,
-      params,
-    } = await this.request.send(GENSHIN_TCG_BASICINFO)
+      params
+    } = await this.request.send(GENSHIN_TCG_BASICINFO);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the cards for the Genshin Impact TCG.
@@ -550,57 +512,50 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async cards() {
-    var _a, _b
-    const perPage = 100
-    let next = true
-    let offset = 0
-    const cardLists = {}
+    var _a, _b;
+    const perPage = 100;
+    let next = true;
+    let offset = 0;
+    const cardLists = {};
     do {
-      this.request
-        .setQueryParams({
-          server: this.region,
-          role_id: this.uid,
-          need_avatar: 'true',
-          need_action: 'true',
-          need_stats: 'true',
-          offset,
-          limit: perPage,
-        })
-        .setDs(true)
+      this.request.setQueryParams({
+        server: this.region,
+        role_id: this.uid,
+        need_avatar: "true",
+        need_action: "true",
+        need_stats: "true",
+        offset,
+        limit: perPage
+      }).setDs(true);
       const {
         response: res,
         body,
         headers,
-        params,
-      } = await this.request.send(GENSHIN_TCG_CARDLIST)
+        params
+      } = await this.request.send(GENSHIN_TCG_CARDLIST);
       if (res.retcode !== 0) {
         throw new HoyoAPIError(
-          (_a = res.message) != null
-            ? _a
-            : 'Failed to retrieve data, please double-check the provided UID.',
+          (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
           res.retcode,
           {
             response: res,
             request: {
               body,
               headers,
-              params,
-            },
-          },
-        )
+              params
+            }
+          }
+        );
       }
-      const data = res.data
-      next = data.is_last === false
-      offset = data.next_offset
-      cardLists.card_list = [
-        ...((_b = cardLists.card_list) != null ? _b : []),
-        ...data.card_list,
-      ]
-      cardLists.is_last = data.is_last
-      cardLists.next_offset = data.next_offset
-      cardLists.stats = data.stats
-    } while (next)
-    return cardLists
+      const data = res.data;
+      next = data.is_last === false;
+      offset = data.next_offset;
+      cardLists.card_list = [...(_b = cardLists.card_list) != null ? _b : [], ...data.card_list];
+      cardLists.is_last = data.is_last;
+      cardLists.next_offset = data.next_offset;
+      cardLists.stats = data.stats;
+    } while (next);
+    return cardLists;
   }
   /**
    * Retrieves the match data for the Genshin Impact TCG.
@@ -609,37 +564,33 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async matchs() {
-    var _a
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    var _a;
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       body,
       headers,
-      params,
-    } = await this.request.send(GENSHIN_TCG_MATCHLIST)
+      params
+    } = await this.request.send(GENSHIN_TCG_MATCHLIST);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the challenge schedule for the Genshin Impact TCG.
@@ -648,37 +599,33 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async challengeSchedule() {
-    var _a
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    var _a;
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       body,
       headers,
-      params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_SCHEDULE)
+      params
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_SCHEDULE);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data.schedule_list
+    return res.data.schedule_list;
   }
   /**
    * Retrieves the challenge record for the Genshin Impact TCG.
@@ -688,38 +635,34 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async challengeRecord(schedule_id) {
-    var _a
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-        schedule_id,
-      })
-      .setDs(true)
+    var _a;
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang,
+      schedule_id
+    }).setDs(true);
     const {
       response: res,
       body,
       headers,
-      params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_RECORD)
+      params
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_RECORD);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the challenge deck for the Genshin Impact TCG.
@@ -730,41 +673,37 @@ var GenshinTCGModule = class {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async challangeDeck(schedule_id, deck_id) {
-    var _a
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-        schedule_id,
-        deck_id,
-      })
-      .setDs(true)
+    var _a;
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang,
+      schedule_id,
+      deck_id
+    }).setDs(true);
     const {
       response: res,
       body,
       headers,
-      params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_DECK)
+      params
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_DECK);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
-}
+};
 
 // src/client/gi/gi.ts
 var GenshinImpact = class _GenshinImpact {
@@ -778,99 +717,96 @@ var GenshinImpact = class _GenshinImpact {
      * The `DailyModule` object provides an interface to interact with the daily check-in feature in Genshin Impact.
      *
      */
-    __publicField(this, 'daily')
+    __publicField(this, "daily");
     /**
      * The `RedeemModule` object provides an interface to interact with the code redemption feature in Genshin Impact.
      *
      */
-    __publicField(this, 'redeem')
+    __publicField(this, "redeem");
     /**
      * The `GenshinRecordModule` object provides an interface to interact with the user record feature in Genshin Impact.
      *
      */
-    __publicField(this, 'record')
+    __publicField(this, "record");
     /**
      * The `GenshinDiaryModule` object provides an interface to interact with the user diary feature in Genshin Impact.
      *
      */
-    __publicField(this, 'diary')
+    __publicField(this, "diary");
     /**
      * The `GenshinTCGModule` object provides an interface to interact with the user diary feature in Genshin Impact.
      *
      */
-    __publicField(this, 'tcg')
+    __publicField(this, "tcg");
     /**
      * HoyYolab account object
      *
      */
-    __publicField(this, '_account', null)
+    __publicField(this, "_account", null);
     /**
      * The cookie object to be used in requests.
      */
-    __publicField(this, 'cookie')
+    __publicField(this, "cookie");
     /**
      * The `Request` object used to make requests.
      */
-    __publicField(this, 'request')
+    __publicField(this, "request");
     /**
      * The UID of the user, if available.
      */
-    __publicField(this, 'uid')
+    __publicField(this, "uid");
     /**
      * The region of the user, if available.
      */
-    __publicField(this, 'region')
+    __publicField(this, "region");
     /**
      * The language to be used in requests.
      */
-    __publicField(this, 'lang')
-    var _a
-    const cookie =
-      typeof options.cookie === 'string'
-        ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
-    this.cookie = cookie
+    __publicField(this, "lang");
+    var _a;
+    const cookie = typeof options.cookie === "string" ? Cookie.parseCookieString(options.cookie) : options.cookie;
+    this.cookie = cookie;
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
-    options.lang = Language.parseLang(options.lang)
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setReferer(DEFAULT_REFERER)
-    this.request.setLang(options.lang)
-    this.uid = (_a = options.uid) != null ? _a : null
-    this.region = this.uid !== null ? getGenshinRegion(this.uid) : null
-    this.lang = options.lang
+    options.lang = Language.parseLang(options.lang);
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setReferer(DEFAULT_REFERER);
+    this.request.setLang(options.lang);
+    this.uid = (_a = options.uid) != null ? _a : null;
+    this.region = this.uid !== null ? getGenshinRegion(this.uid) : null;
+    this.lang = options.lang;
     this.daily = new DailyModule(
       this.request,
       this.lang,
-      'hk4e_global' /* GENSHIN_IMPACT */,
-      this.region,
-    )
+      "hk4e_global" /* GENSHIN_IMPACT */,
+      this.region
+    );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
-      'hk4e_global' /* GENSHIN_IMPACT */,
+      "hk4e_global" /* GENSHIN_IMPACT */,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.record = new GenshinRecordModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.diary = new GenshinDiaryModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.tcg = new GenshinTCGModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
   }
   /**
      * Create a new instance of the GenshinImpact class asynchronously.
@@ -891,19 +827,19 @@ var GenshinImpact = class _GenshinImpact {
      */
   static async create(options) {
     try {
-      let game = null
-      if (typeof options.uid === 'undefined') {
+      let game = null;
+      if (typeof options.uid === "undefined") {
         const hoyolab = new Hoyolab({
-          cookie: options.cookie,
-        })
-        game = await hoyolab.gameAccount('hk4e_global' /* GENSHIN_IMPACT */)
-        options.uid = parseInt(game.game_uid)
+          cookie: options.cookie
+        });
+        game = await hoyolab.gameAccount("hk4e_global" /* GENSHIN_IMPACT */);
+        options.uid = parseInt(game.game_uid);
       }
-      const gi = new _GenshinImpact(options)
-      gi.account = game
-      return gi
+      const gi = new _GenshinImpact(options);
+      gi.account = game;
+      return gi;
     } catch (error) {
-      throw new HoyoAPIError(error.message, error.code)
+      throw new HoyoAPIError(error.message, error.code);
     }
   }
   /**
@@ -912,7 +848,7 @@ var GenshinImpact = class _GenshinImpact {
    */
   set account(game) {
     if (this.account === null && game !== null) {
-      this._account = game
+      this._account = game;
     }
   }
   /**
@@ -920,7 +856,7 @@ var GenshinImpact = class _GenshinImpact {
    * @returns {IGame | null} The current value of the account property.
    */
   get account() {
-    return this._account
+    return this._account;
   }
   /**
    * Get user's Genshin Impact record
@@ -929,7 +865,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.records()} instead
    */
   async records() {
-    return this.record.records()
+    return this.record.records();
   }
   /**
    * Retrieves the Genshin characters of the user.
@@ -938,7 +874,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.characters()} instead
    */
   async characters() {
-    return this.record.characters()
+    return this.record.characters();
   }
   /**
    * Returns the summary information of Genshin Impact game characters
@@ -948,7 +884,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.charactersSummary()} instead
    */
   async charactersSummary(characterIds) {
-    return this.record.charactersSummary(characterIds)
+    return this.record.charactersSummary(characterIds);
   }
   /**
    * Retrieves information about the player's performance in the Spiral Abyss.
@@ -958,7 +894,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.spiralAbyss()} instead
    */
   async spiralAbyss(scheduleType = 1 /* CURRENT */) {
-    return this.record.spiralAbyss(scheduleType)
+    return this.record.spiralAbyss(scheduleType);
   }
   /**
    * Retrieve the daily note information for a Genshin Impact user.
@@ -967,7 +903,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.dailyNote()} instead
    */
   async dailyNote() {
-    return this.record.dailyNote()
+    return this.record.dailyNote();
   }
   /**
    * Returns the diary information of a given month for a user
@@ -977,7 +913,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.diary | Genshin.diary.list()} instead
    */
   async diaryList(month = DiaryMonthEnum.CURRENT) {
-    return this.diary.list(month)
+    return this.diary.list(month);
   }
   /**
    * Returns the diary details of a given type and month for a user
@@ -988,7 +924,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.diary | Genshin.diary.detail()} instead
    */
   async diaryDetail(type, month = DiaryMonthEnum.CURRENT) {
-    return this.diary.detail(type, month)
+    return this.diary.detail(type, month);
   }
   /**
    * Retrieves daily information.
@@ -997,7 +933,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.info()} instead
    */
   dailyInfo() {
-    return this.daily.info()
+    return this.daily.info();
   }
   /**
    * Retrieve daily rewards information.
@@ -1006,7 +942,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.rewards()} instead
    */
   dailyRewards() {
-    return this.daily.rewards()
+    return this.daily.rewards();
   }
   /**
    * Get the daily reward for a specific day or the current day
@@ -1016,7 +952,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.reward()} instead
    */
   dailyReward(day = null) {
-    return this.daily.reward(day)
+    return this.daily.reward(day);
   }
   /**
    * Claim current reward
@@ -1025,7 +961,7 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.claim()} instead
    */
   dailyClaim() {
-    return this.daily.claim()
+    return this.daily.claim();
   }
   /**
    * Redeems a code for a specific account.
@@ -1035,9 +971,9 @@ var GenshinImpact = class _GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.redeem.claim()} instead
    */
   redeemCode(code) {
-    return this.redeem.claim(code)
+    return this.redeem.claim(code);
   }
-}
+};
 
 export {
   GenshinRegion,
@@ -1048,5 +984,5 @@ export {
   DiaryEnum,
   GenshinDiaryModule,
   GenshinTCGModule,
-  GenshinImpact,
-}
+  GenshinImpact
+};

@@ -4,6 +4,7 @@ export interface IHSRExpedition {
   remaining_time: number
   name: string
   item_url: string
+  finish_ts: number
 }
 export interface IHSRNote {
   current_stamina: number

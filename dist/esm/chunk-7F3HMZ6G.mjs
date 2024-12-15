@@ -1,4 +1,7 @@
-import { DailyModule, RedeemModule } from './chunk-CBZPXED2.mjs'
+import {
+  DailyModule,
+  RedeemModule
+} from "./chunk-CBZPXED2.mjs";
 import {
   Cookie,
   DEFAULT_REFERER,
@@ -11,30 +14,30 @@ import {
   HoyoAPIError,
   Hoyolab,
   Language,
-  __publicField,
-} from './chunk-CWUB5GFP.mjs'
+  __publicField
+} from "./chunk-CWUB5GFP.mjs";
 
 // src/client/hi/hi.interface.ts
 var HonkaiRegion = /* @__PURE__ */ ((HonkaiRegion2) => {
-  HonkaiRegion2['USA'] = 'usa01'
-  HonkaiRegion2['EUROPE'] = 'eur01'
-  HonkaiRegion2['ASIA'] = 'overseas01'
-  return HonkaiRegion2
-})(HonkaiRegion || {})
+  HonkaiRegion2["USA"] = "usa01";
+  HonkaiRegion2["EUROPE"] = "eur01";
+  HonkaiRegion2["ASIA"] = "overseas01";
+  return HonkaiRegion2;
+})(HonkaiRegion || {});
 
 // src/client/hi/hi.helper.ts
 function getHi3Region(uid) {
-  let key
+  let key;
   if (uid > 1e7 && uid < 1e8) {
-    key = 'ASIA'
+    key = "ASIA";
   } else if (uid > 1e8 && uid < 2e8) {
-    key = 'USA'
+    key = "USA";
   } else if (uid > 2e8 && uid < 3e8) {
-    key = 'EURO'
+    key = "EURO";
   } else {
-    throw new HoyoAPIError('Given UID '.concat(uid, ' is invalid !'))
+    throw new HoyoAPIError("Given UID ".concat(uid, " is invalid !"));
   }
-  return HonkaiRegion[key]
+  return HonkaiRegion[key];
 }
 
 // src/client/hi/record/record.ts
@@ -48,10 +51,10 @@ var HIRecordModule = class {
    * @param uid The UID number or null if not provided.
    */
   constructor(request, lang, region, uid) {
-    this.request = request
-    this.lang = lang
-    this.region = region
-    this.uid = uid
+    this.request = request;
+    this.lang = lang;
+    this.region = region;
+    this.uid = uid;
   }
   /**
    * Retrieves the records associated with the provided region and UID.
@@ -61,40 +64,36 @@ var HIRecordModule = class {
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
   async records() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(HI_RECORD_INDEX_API)
+      headers
+    } = await this.request.send(HI_RECORD_INDEX_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the characters associated with the provided region and UID.
@@ -104,40 +103,36 @@ var HIRecordModule = class {
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
   async characters() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(HI_RECORD_CHARACTER_API)
+      headers
+    } = await this.request.send(HI_RECORD_CHARACTER_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data.characters
+    return res.data.characters;
   }
   /**
    * Retrieves the abyss information associated with the provided region and UID.
@@ -152,40 +147,36 @@ var HIRecordModule = class {
    * If you would like to contribute, please send a more complete response by creating a pull request.
    */
   async abyss() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(HI_RECORD_ABYSS_API)
+      headers
+    } = await this.request.send(HI_RECORD_ABYSS_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the arena information associated with the provided region and UID.
@@ -200,40 +191,36 @@ var HIRecordModule = class {
    * If you would like to contribute, please send a more complete response by creating a pull request.
    */
   async arena() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(HI_RECORD_ARENA_API)
+      headers
+    } = await this.request.send(HI_RECORD_ARENA_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
   /**
    * Retrieves the elysian information associated with the provided region and UID.
@@ -248,42 +235,38 @@ var HIRecordModule = class {
    * If you would like to contribute, please send a more complete response by creating a pull request.
    */
   async elysian() {
-    var _a
+    var _a;
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError("UID parameter is missing or failed to be filled");
     }
-    this.request
-      .setQueryParams({
-        server: this.region,
-        role_id: this.uid,
-        lang: this.lang,
-      })
-      .setDs(true)
+    this.request.setQueryParams({
+      server: this.region,
+      role_id: this.uid,
+      lang: this.lang
+    }).setDs(true);
     const {
       response: res,
       params,
       body,
-      headers,
-    } = await this.request.send(HI_RECORD_ELYSIAN_API)
+      headers
+    } = await this.request.send(HI_RECORD_ELYSIAN_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
-        (_a = res.message) != null
-          ? _a
-          : 'Failed to retrieve data, please double-check the provided UID.',
+        (_a = res.message) != null ? _a : "Failed to retrieve data, please double-check the provided UID.",
         res.retcode,
         {
           response: res,
           request: {
             body,
             headers,
-            params,
-          },
-        },
-      )
+            params
+          }
+        }
+      );
     }
-    return res.data
+    return res.data;
   }
-}
+};
 
 // src/client/hi/hi.ts
 var HonkaiImpact = class _HonkaiImpact {
@@ -297,84 +280,81 @@ var HonkaiImpact = class _HonkaiImpact {
      * The Daily module for the Honkai Impact 3rd game.
      *
      */
-    __publicField(this, 'daily')
+    __publicField(this, "daily");
     /**
      * The Redeem module for the Honkai Impact 3rd game.
      *
      * @public
      * @readonly
      */
-    __publicField(this, 'redeem')
+    __publicField(this, "redeem");
     /**
      * The `HIRecordModule` object provides an interface to interact with the user record feature in Honkai Star Rails.
      *
      */
-    __publicField(this, 'record')
+    __publicField(this, "record");
     /**
      * The cookie used for authentication.
      *
      */
-    __publicField(this, 'cookie')
+    __publicField(this, "cookie");
     /**
      * The request object used to make HTTP requests.
      *
      */
-    __publicField(this, 'request')
+    __publicField(this, "request");
     /**
      * HoyYolab account object
      *
      */
-    __publicField(this, '_account', null)
+    __publicField(this, "_account", null);
     /**
      * The UID of the Honkai Impact 3rd account.
      *
      */
-    __publicField(this, 'uid')
+    __publicField(this, "uid");
     /**
      * The region of the Honkai Impact 3rd account.
      *
      */
-    __publicField(this, 'region')
+    __publicField(this, "region");
     /**
      * The language of the Honkai Impact 3rd account.
      *
      */
-    __publicField(this, 'lang')
-    var _a
-    const cookie =
-      typeof options.cookie === 'string'
-        ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
-    this.cookie = cookie
+    __publicField(this, "lang");
+    var _a;
+    const cookie = typeof options.cookie === "string" ? Cookie.parseCookieString(options.cookie) : options.cookie;
+    this.cookie = cookie;
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
-    options.lang = Language.parseLang(options.lang)
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setReferer(DEFAULT_REFERER)
-    this.request.setLang(options.lang)
-    this.uid = (_a = options.uid) != null ? _a : null
-    this.region = this.uid !== null ? getHi3Region(this.uid) : null
-    this.lang = options.lang
+    options.lang = Language.parseLang(options.lang);
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setReferer(DEFAULT_REFERER);
+    this.request.setLang(options.lang);
+    this.uid = (_a = options.uid) != null ? _a : null;
+    this.region = this.uid !== null ? getHi3Region(this.uid) : null;
+    this.lang = options.lang;
     this.daily = new DailyModule(
       this.request,
       this.lang,
-      'bh3_global' /* HONKAI_IMPACT */,
-      this.region,
-    )
+      "bh3_global" /* HONKAI_IMPACT */,
+      this.region
+    );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
-      'bh3_global' /* HONKAI_IMPACT */,
+      "bh3_global" /* HONKAI_IMPACT */,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.record = new HIRecordModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
   }
   /**
    * Create a new instance of HonkaiImpact using a Hoyolab account.
@@ -396,20 +376,20 @@ var HonkaiImpact = class _HonkaiImpact {
    */
   static async create(options) {
     try {
-      let game = null
-      if (typeof options.uid === 'undefined') {
+      let game = null;
+      if (typeof options.uid === "undefined") {
         const hoyolab = new Hoyolab({
-          cookie: options.cookie,
-        })
-        game = await hoyolab.gameAccount('bh3_global' /* HONKAI_IMPACT */)
-        options.uid = parseInt(game.game_uid)
-        options.region = getHi3Region(parseInt(game.game_uid))
+          cookie: options.cookie
+        });
+        game = await hoyolab.gameAccount("bh3_global" /* HONKAI_IMPACT */);
+        options.uid = parseInt(game.game_uid);
+        options.region = getHi3Region(parseInt(game.game_uid));
       }
-      const hi = new _HonkaiImpact(options)
-      hi.account = game
-      return hi
+      const hi = new _HonkaiImpact(options);
+      hi.account = game;
+      return hi;
     } catch (error) {
-      throw new HoyoAPIError(error.message, error.code)
+      throw new HoyoAPIError(error.message, error.code);
     }
   }
   /**
@@ -418,7 +398,7 @@ var HonkaiImpact = class _HonkaiImpact {
    */
   set account(game) {
     if (this.account === null && game !== null) {
-      this._account = game
+      this._account = game;
     }
   }
   /**
@@ -426,7 +406,7 @@ var HonkaiImpact = class _HonkaiImpact {
    * @returns {IGame | null} The current value of the account property.
    */
   get account() {
-    return this._account
+    return this._account;
   }
   /**
    * Retrieves daily information.
@@ -435,7 +415,7 @@ var HonkaiImpact = class _HonkaiImpact {
    * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.info() } instead
    */
   dailyInfo() {
-    return this.daily.info()
+    return this.daily.info();
   }
   /**
    *
@@ -443,7 +423,7 @@ var HonkaiImpact = class _HonkaiImpact {
    * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.rewards() } instead
    */
   dailyRewards() {
-    return this.daily.rewards()
+    return this.daily.rewards();
   }
   /**
    * Fetch reward from daily login based on day
@@ -453,7 +433,7 @@ var HonkaiImpact = class _HonkaiImpact {
    * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.reward() } instead
    */
   dailyReward(day = null) {
-    return this.daily.reward(day)
+    return this.daily.reward(day);
   }
   /**
    * Claim current reward
@@ -462,7 +442,7 @@ var HonkaiImpact = class _HonkaiImpact {
    * @deprecated Use through { @link HonkaiImpact.daily | HonkaiImpact.daily.claim() } instead
    */
   dailyClaim() {
-    return this.daily.claim()
+    return this.daily.claim();
   }
   /**
    * Redeem Code
@@ -472,8 +452,13 @@ var HonkaiImpact = class _HonkaiImpact {
    * @deprecated Use through { @link HonkaiImpact.redeem | HonkaiImpact.redeem.claim() } instead
    */
   redeemCode(code) {
-    return this.redeem.claim(code)
+    return this.redeem.claim(code);
   }
-}
+};
 
-export { HonkaiRegion, getHi3Region, HIRecordModule, HonkaiImpact }
+export {
+  HonkaiRegion,
+  getHi3Region,
+  HIRecordModule,
+  HonkaiImpact
+};
