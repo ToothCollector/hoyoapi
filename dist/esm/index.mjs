@@ -7,25 +7,22 @@ import {
   GenshinRegion,
   GenshinTCGModule,
   SpiralAbyssScheduleEnum,
-  getGenshinRegion
-} from "./chunk-3DHA4FUQ.mjs";
+  getGenshinRegion,
+} from './chunk-3DHA4FUQ.mjs'
 import {
   HIRecordModule,
   HonkaiImpact,
   HonkaiRegion,
-  getHi3Region
-} from "./chunk-7F3HMZ6G.mjs";
+  getHi3Region,
+} from './chunk-7F3HMZ6G.mjs'
 import {
   ForgottenHallScheduleEnum,
   HSRRecordModule,
   HonkaiStarRail,
   HsrRegion,
-  getHsrRegion
-} from "./chunk-XM7DQVO6.mjs";
-import {
-  DailyModule,
-  RedeemModule
-} from "./chunk-CBZPXED2.mjs";
+  getHsrRegion,
+} from './chunk-XM7DQVO6.mjs'
+import { DailyModule, RedeemModule } from './chunk-CBZPXED2.mjs'
 import {
   ACCOUNT_API,
   BBS_API,
@@ -66,8 +63,8 @@ import {
   LanguageEnum,
   PUBLIC_API,
   REDEEM_CLAIM_API,
-  USER_GAMES_LIST
-} from "./chunk-CWUB5GFP.mjs";
+  USER_GAMES_LIST,
+} from './chunk-CWUB5GFP.mjs'
 export {
   ACCOUNT_API,
   BBS_API,
@@ -128,5 +125,5 @@ export {
   USER_GAMES_LIST,
   getGenshinRegion,
   getHi3Region,
-  getHsrRegion
-};
+  getHsrRegion,
+}
